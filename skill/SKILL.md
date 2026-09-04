@@ -96,3 +96,14 @@ For post-trade analysis also include:
 - Do not claim certainty about future price movement.
 - Do not execute a trade unless the user explicitly requests execution and an authorized execution tool is available.
 - Prioritize risk analysis over hype.
+## Live Trade Analysis Workflow
+
+When the user provides a trading pair, direction, entry, stop-loss, take-profit, leverage, and optional position size:
+
+1. Run `scripts/trade_cli.py` with the supplied trade parameters.
+2. Use the returned `trade_analysis` and `live_market_data` together.
+3. Base the final assessment on `final_live_adjusted_score`, not only the structural score.
+4. Incorporate `entry_vs_live_pct`, `futures_spot_basis_pct`, `live_score_adjustment`, `live_findings`, and `live_context`.
+5. If live-market retrieval reports errors, explicitly disclose them and do not invent missing market data.
+6. Return the Trade Integrity Score, Risk Level, key findings, primary failure risk, and the single highest-impact improvement.
+7. Never execute or place a trade unless the user explicitly requests execution and an authorized execution tool is available.
